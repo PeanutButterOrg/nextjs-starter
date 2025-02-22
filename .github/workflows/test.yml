@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: Staging
     steps:
-      - name: Flagsmith secret
-        run: echo ${{secrets.FLAGSMITH_KEY}}
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node environment
@@ -33,6 +31,8 @@ jobs:
         with:
           name: build
           path: .next/
+        env:
+          FLAGSMITH_KEY: ${{secrets.FLAGSMITH_KEY}}
       - name: Run Unit tests
         run: npm run test
       - uses: actions/upload-artifact@v4
