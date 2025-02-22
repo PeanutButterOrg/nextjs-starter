@@ -6,6 +6,8 @@ jobs:
   test-and-build:
     runs-on: ubuntu-latest
     steps:
+      - name: Flagsmith secret
+        run: echo ${{secrets.FLAGSMITH_KEY}}
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node environment
