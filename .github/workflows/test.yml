@@ -26,13 +26,15 @@ jobs:
       - name: Check for Type errors
         run: npm run typecheck
       - name: Build Project
-        run: npm run build
+        env:
+          FLAGSMITH_KEY: ${{secrets.FLAGSMITH_KEY}}
+        run: |
+          echo $FLAGSMITH_KEY
+          npm run build
       - uses: actions/upload-artifact@v4
         with:
           name: build
           path: .next/
-        env:
-          FLAGSMITH_KEY: ${{secrets.FLAGSMITH_KEY}}
       - name: Run Unit tests
         run: npm run test
       - uses: actions/upload-artifact@v4
