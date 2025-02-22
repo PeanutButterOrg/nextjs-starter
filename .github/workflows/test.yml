@@ -5,6 +5,7 @@ on:
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
+    environment: Staging
     steps:
       - name: Flagsmith secret
         run: echo ${{secrets.FLAGSMITH_KEY}}
