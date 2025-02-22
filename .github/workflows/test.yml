@@ -47,6 +47,15 @@ jobs:
       - name: Send slack message on failure
         uses: slackapi/slack-github-action@v1.24.0
         with:
-          payload-file-path: "./.github/slack/test-failure-slack-payload.json"
+         payload: |
+          {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": ":octagonal_sign: *<https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}|${{github.workflow}} workflow run>* failed."
+                }
+              ]
+            }
         env:
           SLACK_WEBBHOOK_URL: ${{ secrets.SLACK_WEBBHOOK_URL}}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
