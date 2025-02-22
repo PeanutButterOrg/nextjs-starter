@@ -1,8 +1,8 @@
 {
-    "blocks": [
-     {
-        "type": "section",
-        "text": ":octagonal_sign: *<https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}|${{github.workflow}} workflow run>* failed." 
-     }
- ]
+  "blocks": [
+    {
+      "type": "section",
+      "text": ":octagonal_sign: *<https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}|${{github.workflow}} workflow run>* failed."
+    }
+  ]
 }
