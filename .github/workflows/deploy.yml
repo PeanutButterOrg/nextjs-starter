@@ -57,16 +57,16 @@ jobs:
         continue-on-error: true
         with:
           script: |
-              const comment = `### ⏳Deployment in progress...
-              
-              [You can monitor the progress here.](https://github.com/${{github.repository}}/actions/runs/${{ github.run_id }})`;
+            const comment = `### ⏳Deployment in progress...
 
-              github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: ${{ inputs.report-pr}},
-                body: comment
-              })
+            [You can monitor the progress here.](https://github.com/${{github.repository}}/actions/runs/${{ github.run_id }})`;
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ inputs.report-pr}},
+              body: comment
+            })
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node environment
@@ -131,33 +131,33 @@ jobs:
         if: success() && inputs.report-pr
         continue-on-error: true
         with:
-            script: |
-                const comment = `### 🚀Deployment Completed.
-                
-                You can view the deployed environment here: https://github.com/${{steps.get-env-cname.outputs.aws_env_cname}}`;
-  
-                github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: ${{ inputs.report-pr}},
-                  body: comment
-                })
+          script: |
+            const comment = `### 🚀Deployment Completed.
+
+            You can view the deployed environment here: https://github.com/${{steps.get-env-cname.outputs.aws_env_cname}}`;
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ inputs.report-pr}},
+              body: comment
+            })
       - name: Update Pull Request (Failure)
         uses: actions/github-script@v6
         if: failure() && inputs.report-pr
         continue-on-error: true
         with:
-            script: |
-                const comment = `### 🛑Deployment Failed.
-                
-                [View Logs](https://github.com/${{github.repository}}/actions/runs/${{ github.run_id }})`;
-  
-                github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: ${{ inputs.report-pr}},
-                  body: comment
-                })
+          script: |
+            const comment = `### 🛑Deployment Failed.
+
+            [View Logs](https://github.com/${{github.repository}}/actions/runs/${{ github.run_id }})`;
+
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ inputs.report-pr}},
+              body: comment
+            })
       - name: Abort if Cancelled
         if: cancelled() && steps.install-eb-cli.conclusion == 'success'
         run: eb abort ${{ inputs.aws-env }}
