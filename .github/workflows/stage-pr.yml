@@ -37,5 +37,5 @@ jobs:
                                "github_env": "staging",
                                "report-pr": `${context.issue.number}`
                             }
-                        console.log(response)
-                   })
+                   });
+                   console.log(response)
