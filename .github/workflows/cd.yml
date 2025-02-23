@@ -10,6 +10,8 @@ concurrency:
 jobs:
   create-version-pr-or-release:
     runs-on: ubuntu-latest
+    outputs:
+      should-deploy: ${{steps.changesets.outputs.hasChangesets == 'false'}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,3 +72,23 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+  run-tests:
+    needs: create-version-pr-or-release
+    if: needs.create-version-pr-or-release.outputs.should-deploy == 'true'
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+  deploy-to-staging:
+    needs: run-tests
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      aws-env: ${{vars.AWS_EB_STAGING_ENV}}
+      github-env: "staging"
+  deploy-to-production:
+    needs: run-tests
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
+    with:
+      aws-env: ${{vars.AWS_EB_PRODUCTION_ENV}}
+      github-env: "production"
