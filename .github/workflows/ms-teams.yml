@@ -10,6 +10,7 @@ jobs:
         if: always()
         with:
           webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          title: "TEST Deployment Notification"
           raw: >-
             {
                 "type": "message",
@@ -24,7 +25,7 @@ jobs:
                             [
                                 {
                                     "type": "TextBlock",
-                                    "text": "Deployment Successful for <put application name here and link to github workflow> TEST MESSAGE only by @celina.quiros@bcstechnology.com.au"
+                                    "text": "TEST MESSAGE only by @celina.quiros@bcstechnology.com.au"
                                 }
                             ]
                         }
