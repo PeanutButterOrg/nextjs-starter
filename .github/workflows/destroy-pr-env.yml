@@ -21,8 +21,6 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::221082187837:role/EBforGHActions
           aws-region: ${{vars.AWS_REGION}}
-      - name: Remove Husky
-        run: npm pkg delete scripts.prepare
       - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
