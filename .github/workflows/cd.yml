@@ -48,3 +48,25 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      - name: Set a release version
+        id: get-version
+        run: echo "version=${{ fromJson(steps.changesets.outputs.publishedPackages)[0].version}}" >> $GITHUB_OUTPUT
+      - name: Send a Slack Message when new release is created
+        if: steps.changesets.outputs.published == 'true'
+        uses: slackapi/slack-github-action@v1
+        with:
+          payload: |
+            {
+            "blocks": [
+                {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "⏳*<https://github.com/${{github.repository}}/releases/tag/v${{ steps.get-version.outputs.version }}|Version ${{ steps.get-version.outputs.version }}>* Released! Deployment should be in progress."
+                  }
+                }
+            ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
