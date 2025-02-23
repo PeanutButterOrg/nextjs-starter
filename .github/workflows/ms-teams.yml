@@ -1,0 +1,33 @@
+name: MS Teams
+on: [workflow_dispatch]
+
+jobs:
+  ms-teams-notif:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: always()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          raw: >-
+            {
+                "type": "message",
+                "attachments":
+                [
+                    {
+                        "contentType": "application/vnd.microsoft.card.adaptive",
+                        "content":
+                        {
+                            "type": "AdaptiveCard",
+                            "body":
+                            [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Deployment Successful for <put application name here and link to github workflow> TEST MESSAGE only by @celina.quiros@bcstechnology.com.au"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
