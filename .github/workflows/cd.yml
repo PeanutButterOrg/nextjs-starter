@@ -16,8 +16,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-            fetch-depth: 0
-            persist-credentials: false
+          fetch-depth: 0
+          persist-credentials: false
       - name: Setup Node environment
         uses: actions/setup-node@v3
         with:
@@ -85,7 +85,8 @@ jobs:
   deploy-to-staging:
     needs: run-tests
     permissions:
-        pull-requests: write
+      pull-requests: write
+      id-token: write
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
@@ -94,7 +95,8 @@ jobs:
   deploy-to-production:
     needs: run-tests
     permissions:
-        pull-requests: write
+      pull-requests: write
+      id-token: write
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
