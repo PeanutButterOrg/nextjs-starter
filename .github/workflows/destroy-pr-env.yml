@@ -24,6 +24,9 @@ jobs:
               with:
                 path: ~/.cache/pip
                 key: ${{runner.os}}-pip
+            - name: Install EB CLI
+              id: install-eb-cli
+              run: pip install awsebcli
             - name: Initialize EB
               run: eb init ${{vars.AWS_EB_APP_NAME}} --platform "${{vars.AWS_EB_PLATFORM}}" --region ${{vars.AWS_REGION}}      
             - name: Get AWS ENV Name
