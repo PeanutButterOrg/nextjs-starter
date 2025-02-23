@@ -52,7 +52,7 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ${{vars.AWS_REGION}}
       - name: Update Pull Request (start)
-        uses: actions/@github-script@v6
+        uses: actions/github-script@v6
         if: inputs.report-pr
         continue-on-error: true
         with:
@@ -127,7 +127,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       - name: Update Pull Request (Success)
-        uses: actions/@github-script@v6
+        uses: actions/github-script@v6
         if: success() && inputs.report-pr
         continue-on-error: true
         with:
@@ -143,7 +143,7 @@ jobs:
                   body: comment
                 })
       - name: Update Pull Request (Failure)
-        uses: actions/@github-script@v6
+        uses: actions/github-script@v6
         if: failure() && inputs.report-pr
         continue-on-error: true
         with:
