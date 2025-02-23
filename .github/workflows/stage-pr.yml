@@ -30,8 +30,8 @@ jobs:
                    const response = await github.rest.actions.createWorkflowDispatch({
                         owner: context.repo.owner,
                         repo: context.repo.repo,
-                        workflow_id: "deploy.yml"
-                        ref: "${{ steps.get-head-ref.outputs.result }}"
+                        workflow_id: "deploy.yml",
+                        ref: "${{ steps.get-head-ref.outputs.result }}",
                         inputs: {
                                "aws_env": `github-actions-crouse-demo-pr-${context.issue.number}`,
                                "github_env": "staging",
