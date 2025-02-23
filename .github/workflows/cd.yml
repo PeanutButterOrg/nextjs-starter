@@ -86,6 +86,7 @@ jobs:
     needs: run-tests
     permissions:
       pull-requests: write
+      id-token: write
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
@@ -95,6 +96,7 @@ jobs:
     needs: run-tests
     permissions:
       pull-requests: write
+      id-token: write
     uses: ./.github/workflows/deploy.yml
     secrets: inherit
     with:
